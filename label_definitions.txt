@@ -5,6 +5,7 @@
 #
 # Delete the examples below and put yours in.
 
-analysis: makes an argument backed by a specific, checkable fact
-hot_take: a confident claim with no support offered
-reaction: an immediate response to something that just happened
+analysis: makes a basketball claim and supports it with at least one specific, checkable fact such as a stat, record, date, contract figure, award, or named game
+hot_take: a confident basketball opinion, ranking or prediction that offers no checkable fact in support
+reaction: an immediate response to one specific play, clip or piece of news that makes no claim beyond that moment
+trash_talk: aimed at another user, a fanbase or the subreddit rather than at basketball, with no basketball claim of its own

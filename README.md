@@ -48,41 +48,78 @@
 
 ## Label Taxonomy
 
-<!-- Each label: a one-sentence definition and two real examples from your
-     reading. Then your decision rule for the hardest boundary.
+Four labels. Every post gets exactly one. When a post seems to fit two, check
+them in this order and stop at the first that applies: **analysis → hot_take
+→ reaction → trash_talk**.
 
-     The decision rule is worth a point on its own and it's the thing most
-     people leave out. Every taxonomy has a hardest boundary. Name yours. -->
+### `analysis`
 
-### `label_one`
-
-**Definition:**
-
-**Example 1:**
->
-
-**Example 2:**
->
-
-### `label_two`
-
-**Definition:**
+**Definition:** Makes a basketball claim and supports it with at least one
+specific, checkable fact: a stat, record, date, contract figure, award, or a
+named game or event.
 
 **Example 1:**
->
+> That is honestly the biggest problem with Maravich: he never hesitated to take a shot from anywhere on the court if he felt like it. The all-time record for attempts in a season (1168) is held by Pete Maravich, set his senior year. Second in attempts (1022) is Pete Maravich, during his junior year. Third in attempts (976) is Pete Maravich, during his sophomore year. Fourth is Bill Mikvy with 964. Pete took more than half of his team's shots in college.
 
 **Example 2:**
->
+> Pretty good indeed. 50.4 points and 25.7 rebounds a night in 1961-62, and he never fouled out of a single game in his whole career.
+
+### `hot_take`
+
+**Definition:** A confident basketball opinion, ranking or prediction that
+reaches beyond a single moment and offers no checkable fact in support.
+
+**Example 1:**
+> Look for the Knicks to make a move for a more viable backup 5. I predict Deuce won't make it past the trade deadline
+
+**Example 2:**
+> Obviously Knicks are the top but after them I think the Celtics weirdly will be the second best team
+
+### `reaction`
+
+**Definition:** An immediate response to one specific play, clip or piece of
+news (a feeling, joke or exclamation) that makes no claim beyond that moment.
+
+**Example 1:**
+> insane. ive actually never seen someone get hit in the face like that and not even move
+
+**Example 2:**
+> Hand on the throat is a bit much for 5mins in preseason basketball
+
+### `trash_talk`
+
+**Definition:** Aimed at another user, a fanbase or the subreddit rather than
+at basketball, such as an insult, mockery or banter, with no basketball claim
+of its own.
+
+**Example 1:**
+> Damn you Wolves fans can't let it go huh. Lol
+
+**Example 2:**
+> Maybe stop being obtuse and contrarian. I'm out on a walk to happy hour right now. Hard to tell people to stop making dumb comments on Reddit when you're busy making dumb comments on Reddit
 
 ### The hardest boundary
 
-**Which two labels:**
+**Which two labels:** `analysis` vs `hot_take`.
 
-**The decision rule I used every time:**
-<!-- e.g. "If the post names a specific checkable fact, it's `analysis`, even
-     if the tone is heated." -->
+**The post that sits between them:**
+> Knecht scored 30 against the tanking jazz 2 years ago then never got better. He got plenty of opportunities and would forget offensive plays and miss defensive assignments. Bronny literally had productive playoff minutes last year. JJ is a good coach you think he doesn't want to play the movement shooter guy off screens? The guy is just bad
 
+**The decision rule I used every time:** If the post offers at least one
+specific, checkable fact *as support for its claim*, it's `analysis`, even if
+the tone is heated, the conclusion is extreme, or the reasoning is weak. Vague
+appeals ("he's been bad all year", "ask anyone who watched", "everyone knows")
+are not checkable facts. A fact the post concedes or waves away ("30/12 means
+nothing") is not support either. Under this rule, the Knecht post is
+`analysis`: "scored 30 against the tanking Jazz" and "productive playoff
+minutes last year" are checkable, and both are used to argue the conclusion.
 
+**Second rule (reaction vs trash_talk):** Ask who the post is aimed at. A
+player, play or piece of news makes it `reaction`, even when the language is
+insulting ("this makes Stew look like a huge bitch"). Another user, a fanbase
+or the sub makes it `trash_talk`. A post that insults a user *and* makes a
+basketball claim is labelled by the claim (`analysis` or `hot_take`), which
+is what the label order above enforces.
 
 ---
 
