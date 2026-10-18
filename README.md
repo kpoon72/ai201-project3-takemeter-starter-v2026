@@ -39,10 +39,18 @@
 
 ## What This Does
 
-<!-- Your community, and what your classifier sorts posts into. Three or four
-     sentences. -->
+TakeMeter sorts comments from **r/nba**, Reddit's main NBA discussion
+community, into four kinds of post: **`analysis`** (a basketball claim backed
+by a checkable fact), **`hot_take`** (a confident claim with no support),
+**`reaction`** (a response to one play, clip or piece of news) and
+**`trash_talk`** (aimed at another user, fanbase or the sub, not at
+basketball). The point is to separate the comments worth reading for an
+argument from the noise around them. It's a DistilBERT model fine-tuned on
+276 r/nba comments I collected and labelled.
 
-
+**Stretch feature:** a fourth label, `trash_talk`. In my first 40 posts, about
+1 in 8 were people sniping at each other, and analysis / hot_take / reaction
+had no home for them.
 
 ---
 
@@ -125,91 +133,138 @@ is what the label order above enforces.
 
 ## The Dataset
 
-<!-- Where you collected from, how you labelled, your counts, and three hard
-     cases. -->
+**Where the posts came from:** public r/nba comments posted between
+2026-09-01 and 2026-10-16 (offseason and preseason), pulled from the Arctic
+Shift public Reddit archive with `scripts/collect_nba.py`, because Reddit's
+own JSON endpoint blocked automated requests (403). Filters: 40–1200
+characters, comment score ≥ 2, no links, no AutoModerator or deleted posts.
+That gave a pool of 958 posts (`data/nba_pool.csv`). `analysis` and
+`trash_talk` were thin in a random sample, so I added two targeted pulls: a
+second pass of posts that cite a number (`--stat`), and posts addressed to
+"you / fans / this sub". 40 candidates were skipped because they fit no label
+(off-topic politics or other sports, personal stories, bare questions).
 
-**Where the posts came from:**
-
-**How I labelled them:** <!-- Cold first? Pre-labelled with AI and corrected?
-Say so plainly — the disclosure is required, not penalised. -->
+**How I labelled them:**
+- **Cold set:** 20 posts set aside before any AI labelling. I labelled **16**
+  of them by hand from the definitions alone (note `cold`). For the other 4 I
+  asked the AI to choose, so they are marked pre-labelled, not cold.
+- **Pre-labelled:** the other 256 rows were pre-labelled by an AI (Claude)
+  given my definitions, label order and decision rules (note `pre-labelled
+  by AI`). The AI then did a second consistency pass (every non-analysis post
+  containing a number, and every analysis post without one), which changed
+  nothing.
+- **My review:** I spot-checked 20 random pre-labelled rows (5 per label) and
+  agreed with the AI on **3 of 20**. Several of my picks contradicted my own
+  written rules, so I recorded them in `notes/milestone4_spot_check.csv`
+  instead of overwriting the training labels. The other 236 rows I did not
+  review individually. Full log: `notes/milestone4_hard_cases.md`.
 
 **Counts per label:**
 
 | Label | Count | Share |
 |---|---|---|
-|  |  |  |
-|  |  |  |
-|  |  |  |
-| **Total** |  | 100% |
+| analysis | 93 | 33.7% |
+| hot_take | 80 | 29.0% |
+| reaction | 54 | 19.6% |
+| trash_talk | 49 | 17.8% |
+| **Total** | 276 | 100% |
 
 **Three hard cases**
 
-<!-- Any post that made you pause: what it was, which two labels it could have
-     been, and what you chose. These are worth more than the easy 190. -->
-
 **1.**
-> *The post:*
+> *The post:* "holy shit, he went 56-104 on threes in the 16-17 season"
 >
-> *Could have been:*
+> *Could have been:* `analysis` or `reaction`
 >
-> *I chose, because:*
+> *I chose, because:* `reaction`. It has a checkable number, but the number
+> isn't used to support any claim; it's surprise at a fact. My analysis rule
+> needs a claim for the fact to support.
 
 **2.**
-> *The post:*
+> *The post:* "Gordon is bigger, more athletic, can shoot 3s, a better decision maker, and is more skilled than Sochan. He's also a way more impactful defender. ... He's just not a good player and I think he'll be out of the league soon."
 >
-> *Could have been:*
+> *Could have been:* `analysis` or `hot_take`
 >
-> *I chose, because:*
+> *I chose, because:* `hot_take`. It's long and gives reasons, so it reads
+> like analysis, but every reason is itself an opinion. Effort isn't the test;
+> a checkable fact is.
 
 **3.**
-> *The post:*
+> *The post:* "Damn Collins just got ragebaited in preseason game 1 on a brand new team. Could easily be nothing but honestly that just does not bode well for his season/future in the league."
 >
-> *Could have been:*
+> *Could have been:* `reaction` or `hot_take`
 >
-> *I chose, because:*
+> *I chose, because:* `hot_take`. It starts as a reaction to one clip, but the
+> second sentence makes a claim about his whole season, and my label order
+> puts `hot_take` ahead of `reaction`.
 
 ---
 
 ## The Training Run
 
-<!-- Your starting model, your settings, and anything you changed and why. -->
+**Base model:** `distilbert-base-uncased`
 
-**Base model:**
+**Settings:** 3 epochs, learning rate 2e-5, batch size 16, max length 128
+tokens, seed 42. Trained on **`mps` (Apple Silicon GPU)**, torch 2.14.1, as
+recorded in `results.json`.
 
-**Settings:** <!-- epochs, learning rate, batch size, seed -->
+**Anything I changed from the defaults, and why:** nothing. The only notebook
+edits were my name and the label list (four labels instead of the example
+three).
 
-**Anything I changed from the defaults, and why:**
+**Split sizes:** train 192 · val 42 · test 42 (stratified 70/15/15).
 
-**Split sizes:** <!-- train / val / test, and per-label counts in the test
-split. If a label had fewer than about 8 in test, say so — it explains a lot
-of next unit's variance. -->
+| Label | Train | Val | Test |
+|---|---|---|---|
+| analysis | 65 | 14 | 14 |
+| hot_take | 56 | 12 | 12 |
+| reaction | 38 | 8 | 8 |
+| trash_talk | 33 | 8 | 8 |
 
-
+`reaction` and `trash_talk` have exactly 8 posts each in test, right at the
+edge where one wrong prediction moves a label's F1 a lot. Expect those two
+to be the jumpiest across seeds next unit.
 
 ---
 
 ## How I Used AI
 
-<!-- Two specific moments — what you asked, what came back, what you changed.
+I used Claude (in Claude Code) throughout this unit.
 
-     ⚠️ Plus disclosure of any pre-labelling. If you had a model pre-label a
-     batch and then read and corrected every one, say that. It's an allowed
-     workflow and disclosing it costs you nothing. Not disclosing it is the
-     problem. -->
+**Moment 1: stress-testing the labels**
 
-**Moment 1**
+- *What I asked for:* eight posts that sit on the boundaries between my four
+  labels, to classify using only my definitions.
+- *What came back:* eight posts. Five were clean; three weren't: a stat the
+  poster waves away ("30/12 means nothing"), a reaction that ends in a
+  prediction, and an insult to a user that also cites a stat.
+- *What I changed:* three rule changes, all now in the taxonomy: a fact must be
+  used *as support*; a label order (analysis → hot_take → reaction →
+  trash_talk); and a basketball claim beats an insult. Log:
+  `notes/milestone2_stress_test.md`.
 
-- *What I asked for:*
-- *What came back:*
-- *What I changed:*
+**Moment 2: drafting the acceptance criteria**
 
-**Moment 2**
+- *What I asked for:* after checking with course staff that it was allowed,
+  I had Claude draft the five criteria, using the metrics the notebook
+  actually records.
+- *What came back:* five criteria, one per area (accuracy 0.60, per-label F1
+  0.45, balance 15–40%, staff agreement 22/30, confidence gap 0.20), each
+  with a reason tied to my data.
+- *What I changed:* I kept the numbers. The balance criterion changed my
+  collection plan: `analysis` was too rare in a random sample, so I pulled
+  extra stat-citing posts to reach 15%.
 
-- *What I asked for:*
-- *What came back:*
-- *What I changed:*
+**Other AI use:** Claude wrote the collection script, picked the README
+example posts, drafted the definitions and this README, and ran the
+notebook.
 
-**Pre-labelling disclosure:**
+**Pre-labelling disclosure:** 260 of 276 rows were labelled by AI (256
+pre-labelled, plus 4 cold-set posts I asked it to choose). 16 rows are my own
+cold labels. I spot-checked 20 AI rows, agreed with 3, and kept the AI
+labels because my picks didn't follow my written rules. I did not review the
+remaining 236 individually. Each row's `note` column says which group it is
+in.
 
 <!-- ═══════════════════════ UNIT 6 — THE TEST ═══════════════════════
 
