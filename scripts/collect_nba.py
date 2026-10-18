@@ -5,6 +5,8 @@ Timeboxed helper, not part of the model pipeline.
 """
 import csv
 import json
+import re
+import sys
 import time
 import urllib.parse
 import urllib.request
@@ -14,6 +16,9 @@ from pathlib import Path
 API = "https://arctic-shift.photon-reddit.com/api/comments/search"
 OUT = Path(__file__).resolve().parent.parent / "data" / "nba_pool.csv"
 SKIP_AUTHORS = {"AutoModerator", "[deleted]"}
+# Second pass: analysis posts are rare, so pull extra posts that cite a number.
+STAT = re.compile(r"\d+(\.\d+)?\s*(%|ppg|pts|points|rebounds|assists|apg|rpg|wins|games|seasons|TS|FG|mpg|/\d)"
+                  r"|\b(19|20)\d\d\b|\$\d|\b\d+-\d+\b", re.I)
 
 
 def fetch(day):
@@ -44,9 +49,16 @@ def keep(c):
 
 
 def main():
+    # `python collect_nba.py`        -> 2026-09-20..10-16, everything that passes keep()
+    # `python collect_nba.py --stat` -> 2026-09-01..09-19, only posts matching STAT, appended
+    stat_only = "--stat" in sys.argv
     rows, seen = [], set()
-    start = date(2026, 9, 20)
-    for i in range(27):
+    if stat_only:
+        with OUT.open() as f:
+            rows = list(csv.DictReader(f))
+        seen = {r["id"] for r in rows}
+    start, days = (date(2026, 9, 1), 19) if stat_only else (date(2026, 9, 20), 27)
+    for i in range(days):
         day = start + timedelta(days=i)
         try:
             batch = fetch(day)
@@ -54,7 +66,8 @@ def main():
             print(day, "failed:", e)
             time.sleep(5)
             continue
-        kept = [c for c in batch if keep(c) and c["id"] not in seen]
+        kept = [c for c in batch if keep(c) and c["id"] not in seen
+                and (not stat_only or STAT.search(c["body"]))]
         for c in kept:
             seen.add(c["id"])
             rows.append({"id": c["id"], "date": day.isoformat(), "score": c["score"],
