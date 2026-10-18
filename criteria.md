@@ -51,63 +51,78 @@ whether you hit them:
 
 ---
 
-## 1.
+## 1. Overall accuracy is at least 0.60 on the held-out test split
 
-<!-- Your criterion. It must name a number. -->
+Measured as `accuracy` in `results.json`, and it must hold on all three seeds
+next unit.
 
-
-
-**Why this target:**
-
-
-
----
-
-## 2.
-
-<!-- Your criterion. -->
-
-
-
-**Why this target:**
-
-
+**Why this target:** With four labels, random guessing scores about 0.25, and
+always guessing my biggest label scores roughly its share of the file
+(capped at 0.40 by criterion 3). 0.60 is clearly above both, so a model that
+reaches it has learned something real. It's not higher because my hardest
+boundary (`analysis` vs `hot_take`) depends on whether a fact is used *as
+support*, which is a judgment a small model may only partly pick up from 140
+training posts.
 
 ---
 
-## 3.
+## 2. Every label has an F1 of at least 0.45 on the held-out test split
 
-<!-- Your criterion. -->
+Measured as the per-label `f1` for each of `analysis`, `hot_take`, `reaction`
+and `trash_talk` in `results.json`. All four must clear it, on all three seeds.
 
-
-
-**Why this target:**
-
-
-
----
-
-## 4.
-
-<!-- Your criterion. -->
-
-
-
-**Why this target:**
-
-
+**Why this target:** This stops one strong label from hiding a label the
+model never learned. It's lower than criterion 1 because the test split is
+only about 30 posts, roughly 7–8 per label, so a single wrong post moves a
+label's F1 by more than 0.10. I expect `hot_take` to be the weakest, since it
+borders both `analysis` (did they offer support?) and `reaction` (does the
+claim reach past the moment?). 0.45 is roughly twice what guessing would get
+on one label.
 
 ---
 
-## 5.
+## 3. No label is more than 40% or less than 15% of `labels.csv`
 
-<!-- Your criterion. -->
+Measured by counting the `label` column of `labels.csv` (the notebook's check
+cell prints the shares).
 
+**Why this target:** The course cap of 70% means nothing with four labels: a
+file could be 70% `hot_take` and leave about 10% for each of the others,
+which is about 3 test posts per label. At 15% of 200 rows, the thinnest label
+still has about 30 examples, enough for roughly 20 training and 4–5 test
+posts. I expect `analysis` to be the thinnest, since most r/nba comments
+don't cite a number; in my 40-post reading sample only about 4 did. So I'll
+probably have to collect extra stat-backed posts to hit this.
 
+---
 
-**Why this target:**
+## 4. My labels agree with the staff labels on at least 22 of the 30 staff posts (73%)
 
+Measured by `agreement.py` next unit, labelling `data/staff_posts.csv` under
+the staff taxonomy in `data/staff_taxonomy.md`.
 
+**Why this target:** This is the only check on whether *I* label
+consistently, separate from whether the model learns. The staff taxonomy has
+three labels close to mine (minus `trash_talk`), so I should be applying
+similar judgments. 22/30 leaves room for 8 disagreements, because the course
+says several of those posts were chosen to be genuinely ambiguous, and the
+analysis-vs-opinion line is where I already had to tighten my own rules
+three times in the stress test.
+
+---
+
+## 5. On the most confident third of test posts, accuracy is at least 0.20 higher than on the least confident third
+
+Measured as `accuracy_most_confident_third` minus
+`accuracy_least_confident_third` in `results.json`, on all three seeds.
+
+**Why this target:** If confidence doesn't separate right from wrong, the
+model's scores can't be used to decide which predictions to trust, for
+example to send unsure posts to a human. I expect the unsure posts to be
+exactly the `analysis`/`hot_take` and `reaction`/`hot_take` borderline cases,
+while short `trash_talk` and `reaction` posts are easy and confident. A gap
+of 0.20 means at least 2 more right answers out of about 10 posts per third,
+which is the smallest difference I'd trust not to be one lucky post.
 
 ---
 
