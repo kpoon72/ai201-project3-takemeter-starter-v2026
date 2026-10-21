@@ -341,7 +341,7 @@ split, with 42 test posts. Seed 42 reproduced the unit 5 run exactly (0.500).
 | 1. Overall accuracy | ≥ 0.60 | 0.500 | 0.476 | 0.500 | MISSED |
 | 2. Every label F1 (worst label shown) | ≥ 0.45 | 0.000 (`reaction`) | 0.000 (`reaction`, `trash_talk`) | 0.000 (`trash_talk`) | MISSED |
 | 3. Every label 15–40% of `labels.csv` | 15%–40% | 17.8%–33.7% | 17.8%–33.7% | 17.8%–33.7% | MET |
-| 4. Agreement with staff labels | ≥ 22/30 | see Agreement Report | — | — | (Milestone 3) |
+| 4. Agreement with staff labels | ≥ 22/30 | 5/30 (measured once, not per seed) | — | — | MISSED |
 | 5. Most-confident third minus least-confident third, accuracy | ≥ +0.20 | +0.286 (0.714 vs 0.429) | +0.500 (0.714 vs 0.214) | +0.429 (0.643 vs 0.214) | MET |
 
 Criterion 3 is a property of the labelled file, not of a split, so it's the
@@ -396,7 +396,7 @@ The model treats "sounds like a basketball argument" as `analysis` whether or
 not a checkable fact is there, so it hasn't learned my hardest boundary, and
 it errs in one direction only. Across all three seeds there's a second
 pattern: the model almost never predicts `reaction` or `trash_talk` at all
-(4 such predictions in 126 test posts). It falls back on the two biggest
+(6 such predictions in 126 test posts). It falls back on the two biggest
 labels.
 
 ---
@@ -408,24 +408,68 @@ labels.
 
 | # | Criterion | Target | Verdict | How I decided |
 |---|---|---|---|---|
-| 1 |  |  |  |  |
-| 2 |  |  |  |  |
-| 3 |  |  |  |  |
-| 4 |  |  |  |  |
-| 5 |  |  |  |  |
+| 1 | Overall accuracy on the test split | ≥ 0.60 on all 3 seeds | **MISSED** | 0.500 / 0.476 / 0.500. No seed reached 0.60; the best is 10 points short. |
+| 2 | Every label F1 | ≥ 0.45 for all 4 labels, all 3 seeds | **MISSED** | Some label scored 0.000 on every seed (`reaction` on 42 and 7, `trash_talk` on 7 and 2024). Only `analysis` cleared 0.45 on all three. |
+| 3 | Every label 15–40% of `labels.csv` | all four inside 15%–40% | **MET** | Smallest `trash_talk` 17.8%, largest `analysis` 33.7%. It's a property of the file, so it's the same for every seed. |
+| 4 | Agreement with the staff labels | ≥ 22/30 | **MISSED** | 5/30 from `agreement.py`, 17 short. |
+| 5 | Most-confident third beats least-confident third | ≥ +0.20 on all 3 seeds | **MET** | +0.286 / +0.500 / +0.429. The smallest gap (seed 42) still clears 0.20 by about one post per third (14 posts each). |
+
+**Arguing against my two MET verdicts.** Criterion 5 could be called
+hollow: the model is confident mainly on `analysis`, the one label it gets
+right, so the gap may just reflect "analysis is easy" rather than useful
+calibration. But the criterion as written asks only for the gap, the gap
+holds on all three seeds, and so the verdict stays MET. Criterion 3 can't be
+argued against: it's a count.
 
 **Diagnoses**
 
-<!-- For each miss: the cause, and how you know. The four common causes are:
-     too few examples for a label, a boundary you applied inconsistently, a
-     genuinely hard label pair, and a task the model can't reach from this
-     much data.
+**Criterion 1 (accuracy) and criterion 2 (per-label F1): undertrained,
+falling back on the two biggest labels.**
+- *Evidence from the matrix:* across 126 test predictions (3 seeds × 42),
+  the model predicted `reaction` or `trash_talk` only 6 times, although 48
+  of those posts really were one of the two. On seed 7, every real
+  `reaction` and `trash_talk` post was called `hot_take` (8 and 8).
+- *Evidence from training:* the training loss ended at about 1.19–1.25.
+  Random guessing over four labels is 1.39 (ln 4). Validation loss was still
+  falling at epoch 3 on every seed (seed 42: 1.30 → 1.24 → 1.21). The model
+  stopped while still learning, before it got past "guess one of the two
+  big labels".
+- *Evidence it isn't the labels' fault:* `reaction` is the easiest label to
+  spot from the surface. Its posts average 15 words against 50 for
+  `analysis`, yet the model still mislabels them. A model that had learned
+  anything about these labels would pick that up.
+- *Why the small labels suffer most:* `reaction` and `trash_talk` have only
+  38 and 33 training posts. With so little training, the model gets the
+  most out of predicting the 65- and 56-post labels.
 
-     ⚠️ Use your agreement report as evidence. It is the only instrument you
-     have that can tell a LABELLING problem from a MODEL problem, and this
-     section is graded on whether you used it that way. -->
+**Criterion 2, the `hot_take` → `analysis` direction: a genuinely hard
+pair.** On seed 42, 7 real `hot_take` posts were called `analysis` and 0
+went the other way (6 and 0 on seed 7, 5 and 2 on seed 2024). My rule
+separates these two by *whether a fact is used as support*, but on the
+surface they look alike: 51% of my `hot_take` posts contain a number
+(against 87% of `analysis`). The model has learned "a number plus a
+confident claim means `analysis`" and not the support rule. The agreement
+report is what rules out "I labelled this boundary inconsistently" as the
+main cause. My inconsistency on the staff set was the same mistake
+(number = analysis), but 260 of 276 training rows were labelled by AI
+applying the written rule, not by me, so the training data mostly holds
+the rule, not my habit. The model is failing the same boundary I fail,
+for a similar reason: the surface cue is easier than the rule.
 
+**Criterion 4 (agreement): my own labelling, pile (a).** 19 of 25
+disagreements were cases where a staff rule covered the post and I didn't
+apply it. The consistent error was treating any number or date as
+`analysis` and treating confident conclusions as `hot_take` even when facts
+carried them. My unit 5 spot-check (3/20) showed the same pattern. This is
+a labelling-consistency problem, not a model problem. What it means for the
+model is limited to my 16 cold rows in `labels.csv`, which are less
+reliable than the rest.
 
+**What this points at for the improvement:** the matrix and the loss both
+say the first problem is training, not labels. The model never got far
+enough to show whether it can learn my boundaries. So my one change is a
+training setting (more epochs), which the assignment says to choose only
+when the diagnosis points at training. Here it does.
 
 ---
 
@@ -708,26 +752,68 @@ training rows were pre-labelled by AI applying my written rules, and only
 
 ## The Improvement
 
-**What I changed:**
+**What I changed:** one training setting. `EPOCHS` went from 3 to 10 in
+section 2 of the notebook. Everything else is identical: same `labels.csv`,
+same taxonomy, same criteria, same learning rate (2e-5), batch size (16),
+max length (128), same three seeds (42, 7, 2024, so the same three splits),
+same device (`mps`). Results are in `results_three_seeds_after.json`
+(`RUN_LABEL = "after"`), and `results_three_seeds_before.json` is untouched.
 
-**Which diagnosis pointed at it:**
+**Which diagnosis pointed at it:** the criteria 1 and 2 diagnosis. Training
+loss ended near random (1.19–1.25 against ln 4 = 1.39), validation loss was
+still falling at epoch 3 on every seed, and the model predicted the two small
+labels only 6 times in 126 test posts. That's a model that stopped
+before it learned, so the fix is to let it train longer. I did not relabel:
+the agreement report showed my inconsistency is in my own 16 cold rows, while
+the 260 AI-labelled rows follow the written rules.
 
 ### Run Log — After
 
 | Criterion | Target | Seed 42 | Seed 7 | Seed 2024 | Verdict |
 |---|---|---|---|---|---|
-| 1.  |  |  |  |  |  |
-| 2.  |  |  |  |  |  |
-| 3.  |  |  |  |  |  |
-| 4.  |  |  |  |  |  |
-| 5.  |  |  |  |  |  |
+| 1. Overall accuracy | ≥ 0.60 | 0.548 | 0.500 | 0.524 | MISSED |
+| 2. Every label F1 (worst label shown) | ≥ 0.45 | 0.182 (`reaction`) | 0.154 (`reaction`) | 0.222 (`reaction`) | MISSED |
+| 3. Every label 15–40% of `labels.csv` | 15%–40% | 17.8%–33.7% | 17.8%–33.7% | 17.8%–33.7% | MET |
+| 4. Agreement with staff labels | ≥ 22/30 | 5/30 (unchanged, no relabelling) | — | — | MISSED |
+| 5. Most-confident third minus least-confident third, accuracy | ≥ +0.20 | +0.357 (0.714 vs 0.357) | +0.571 (0.857 vs 0.286) | +0.357 (0.714 vs 0.357) | MET |
 
-**Did it help, and how do I know:**
+**Before vs after, side by side:**
 
-<!-- If it didn't, say so. Relabelling that didn't help is a genuinely
-     interesting result and earns full credit. -->
+| Measure | Before: 42 / 7 / 2024 | After: 42 / 7 / 2024 | Change in the 3-seed mean |
+|---|---|---|---|
+| Overall accuracy | 0.500 / 0.476 / 0.500 | 0.548 / 0.500 / 0.524 | 0.492 → 0.524 (+0.032) |
+| Macro F1 | 0.371 / 0.294 / 0.378 | 0.477 / 0.451 / 0.453 | 0.348 → 0.460 (+0.113) |
+| F1 — `analysis` | 0.683 / 0.824 / 0.727 | 0.800 / 0.720 / 0.690 | 0.745 → 0.737 (−0.008) |
+| F1 — `hot_take` | 0.400 / 0.353 / 0.452 | 0.480 / 0.500 / 0.500 | 0.402 → 0.493 (+0.092) |
+| F1 — `reaction` | 0.000 / 0.000 / 0.333 | 0.182 / 0.154 / 0.222 | 0.111 → 0.186 (+0.075) |
+| F1 — `trash_talk` | 0.400 / 0.000 / 0.000 | 0.444 / 0.429 / 0.400 | 0.133 → 0.424 (+0.291) |
+| `reaction`/`trash_talk` predictions (of 42) | 2 / 0 / 4 | 13 / 11 / 3 | 6 → 27 in total |
 
+**Confusion matrix after, seed 42:**
 
+| true \ predicted | analysis | hot_take | reaction | trash_talk |
+|---|---|---|---|---|
+| **analysis** | 12 | 2 | 0 | 0 |
+| **hot_take** | 2 | 6 | 1 | 3 |
+| **reaction** | 2 | 2 | 1 | 3 |
+| **trash_talk** | 0 | 3 | 1 | 4 |
+
+**Did it help, and how do I know:** Yes, partly, but no verdict changed.
+The clearest gain is macro F1, up on every seed (mean 0.35 → 0.46). The model
+now actually uses the small labels: `reaction`/`trash_talk` predictions went
+from 6 to 27 across the three seeds, and `trash_talk` F1 went from
+0.40 / 0.00 / 0.00 to 0.44 / 0.43 / 0.40, about 0.42 on every seed. The
+one-way `hot_take` → `analysis` error on seed 42 went from 7 to 2, so the
+analysis/hot_take boundary improved too. Overall accuracy rose only 3
+points, which is about one post per seed: less than I'd call a real
+change on 42 posts. Every miss is still a miss. Accuracy is 5–10 points
+short, and `reaction` is still the worst label on every seed (≤ 0.22).
+
+What the change revealed: once the model stopped falling back on the two
+big labels, `reaction`'s errors spread out, mostly into `trash_talk` (3 of 8
+on seed 42) and `hot_take`. Both are short, informal posts. So `reaction`'s
+problem is no longer undertraining. It's a short-post boundary the model
+can't draw from 38 training examples.
 
 ---
 
