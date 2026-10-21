@@ -288,6 +288,9 @@ in.
 **What I predicted before I looked:**
 <!-- Milestone 1 asks you to write this BEFORE seeing the trained numbers. A
      prediction made afterwards isn't one. -->
+Written before running the baseline: the trained model will beat the
+baseline on overall accuracy, mostly on `analysis`, because it learned what
+"a checkable fact used as support" looks like in r/nba posts.
 
 **What the gap actually means:**
 <!-- If the baseline matched your trained model, your fine-tuning added
