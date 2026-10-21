@@ -437,49 +437,272 @@ labels.
      data/staff_taxonomy.md, not your own — so every argument below is made
      from those definitions and those decision rules. -->
 
-**Agreement rate:** ___ / 30 = ___%
+**Agreement rate:** 5 / 30 = 17%
 
-<!-- Nobody grades this number. A 60% who argues every disagreement from the
-     stated rules beats a 95% who wrote "staff was right" nine times. Several
-     of the 30 were chosen because they're genuinely ambiguous — you should be
-     winning some of these. -->
+I labelled all 30 under `data/staff_taxonomy.md` and committed
+`my_staff_labels.csv` (commit `500ef18`) before opening the staff labels.
+Matches: posts 1, 2, 3, 5 and 13.
+
+**Where the 25 disagreements fall:**
+
+| Staff label | My label | Count | Posts |
+|---|---|---|---|
+| `analysis` | `hot_take` / `reaction` | 6 | 4, 6, 7, 8, 9, 10 |
+| `hot_take` | `analysis` | 8 | 11, 12, 15, 16, 17, 18, 19, 20 |
+| `hot_take` | `reaction` | 1 | 14 |
+| `reaction` | `analysis` | 7 | 21, 22, 23, 25, 26, 27, 29 |
+| `reaction` | `hot_take` | 3 | 24, 28, 30 |
+
+**Piles:** (a) applied loosely: 19 · (b) rule gap: 4 (14, 19, 25, 28) ·
+(c) defensible reading: 2 (24, 30).
 
 **Disagreements**
 
-<!-- Three lines each: the post, both labels, and who you think is right and
-     why — grounded in the staff definitions you were both applying.
+**4.**
+> *The post:* Everyone blames the hill at 18 miles. I split the field into people who ran the first half under 1:45 and over, and the slowdown after 18 was almost identical for both groups. If the hill were the problem the fast starters would fall apart harder.
+>
+> *Staff said / I said:* `analysis` / `hot_take`
+>
+> *My call, and why:* Staff is right. The post sets up a test (first half under or over 1:45), reports the result (the same slowdown after 18), and draws the inference from it. Rule 1: the test result carries the argument. I called it hot_take because no single number appears in the conclusion, but the definition doesn't require one; it requires a checkable fact doing the work.
+>
+> *Which pile:* (a) applied loosely
 
-     Then sort each into one of three piles:
-       (a) the rule covered it and I applied it loosely → a consistency problem
-       (b) the rule genuinely doesn't say               → a gap in the definitions
-       (c) the rule is ambiguous here and my reading is defensible → argue it.
-           This is a legitimate win.
+**6.**
+> *The post:* Checked the entry lists. 41% of this year's field have never run the distance before, against 26% five years ago. That's why the finish-line photos look different, not because standards dropped.
+>
+> *Staff said / I said:* `analysis` / `hot_take`
+>
+> *My call, and why:* Staff is right. 41% vs 26% is used to reject a rival explanation ('not because standards dropped'). Under Rule 1 that is the fact carrying the argument. I read the confident ending as a hot take, but the confidence rests on the numbers.
+>
+> *Which pile:* (a) applied loosely
 
-     Pile (a) is the one that matters most for your diagnosis: if you applied a
-     written rule two different ways on 30 posts, that is direct evidence about
-     what you did across your own 200. -->
+**7.**
+> *The post:* Ran the same loop in 4C and in 24C within a fortnight, same effort by heart rate. 90 seconds slower in the heat over six miles. People keep saying heat costs you 'a bit' and it's more than that.
+>
+> *Staff said / I said:* `analysis` / `hot_take`
+>
+> *My call, and why:* Staff is right. A same-loop, same-effort comparison with a number attached (90 seconds over six miles), used to answer 'heat costs a bit'. Rule 1 asks whether the fact is load-bearing, not whether the sample is big.
+>
+> *Which pile:* (a) applied loosely
 
-**1.**
-> *The post:*
+**8.**
+> *The post:* Went back through the club results going back to 2012. Every single year the number of people who enter the spring marathon and don't start it sits between 18 and 23 percent. It's not a bad-luck year, it's the base rate.
 >
-> *Staff said / I said:*
+> *Staff said / I said:* `analysis` / `reaction`
 >
-> *My call, and why:*
+> *My call, and why:* Staff is right. A range (18–23%) across a named span (since 2012), used to argue it's a base rate, not a bad-luck year. Nothing in it is about the writer's own feelings, so the reaction definition doesn't fit, and Rule 3 says recency doesn't outrank evidence.
 >
-> *Which pile:*
+> *Which pile:* (a) applied loosely
 
-**2.**
-> *The post:*
+**9.**
+> *The post:* The 10K route was remeasured in 2021 and came out 60 metres long. Everyone comparing PBs from before and after that is comparing two different races, which is about 12 seconds at club pace.
 >
-> *Staff said / I said:*
+> *Staff said / I said:* `analysis` / `hot_take`
 >
-> *My call, and why:*
+> *My call, and why:* Staff is right. A date (2021), a measurement (60 m long) and the arithmetic consequence (about 12 seconds) are the whole argument. I reacted to 'Everyone comparing PBs…' as a sweeping claim, but that claim is exactly what the remeasurement supports.
 >
-> *Which pile:*
+> *Which pile:* (a) applied loosely
+
+**10.**
+> *The post:* Three of us ran the same session on the same day, different shoes, within 10 seconds of each other over 5 miles. I'm not saying shoes do nothing, but whatever they do was smaller than the noise between three people.
+>
+> *Staff said / I said:* `analysis` / `hot_take`
+>
+> *My call, and why:* Staff is right, though staff flagged it as hard. The sample is tiny (three runners) and the conclusion is hedged, but Rule 1 doesn't ask for strong evidence, only that the checkable observation (within 10 seconds over 5 miles) is what the claim rests on. It is.
+>
+> *Which pile:* (a) applied loosely
+
+**11.**
+> *The post:* Anyone who races more than once a month isn't training, they're just collecting medals.
+>
+> *Staff said / I said:* `hot_take` / `analysis`
+>
+> *My call, and why:* Staff is right. There is no fact anywhere in the post. 'Once a month' is part of the claim, not evidence for it, so the analysis definition can't apply. A confident claim about a group with zero support is the hot_take definition.
+>
+> *Which pile:* (a) applied loosely
+
+**12.**
+> *The post:* Heart rate zones are astrology for runners.
+>
+> *Staff said / I said:* `hot_take` / `analysis`
+>
+> *My call, and why:* Staff is right. A metaphor is not a 'named comparison' in the sense the definition means (a comparison with checkable content). Nothing is argued, so it's hot_take.
+>
+> *Which pile:* (a) applied loosely
+
+**14.**
+> *The post:* Times are down about 3% since the shoe rules changed, so obviously the shoes are the whole story and the sport has a problem.
+>
+> *Staff said / I said:* `hot_take` / `reaction`
+>
+> *My call, and why:* Staff says hot_take, I said reaction. Staff is right that it's not analysis (Rule 1: '3%' is decoration, 'so obviously' does the work). But my reaction reading isn't covered by any rule: the post reads as a heated response to the latest times. Rule 2 separates reaction from hot_take by 'about the writer vs about the world', and this one is about the world, so on reflection it's hot_take. Still, the taxonomy has no rule for a response to news that makes a general claim. I'm calling it a gap: reaction's definition ('an immediate response to something that just happened') fits it on its face.
+>
+> *Which pile:* (b) rule gap
+
+**15.**
+> *The post:* Marathon training plans are all the same plan with different fonts.
+>
+> *Staff said / I said:* `hot_take` / `analysis`
+>
+> *My call, and why:* Staff is right. An aphorism with no support. Whether plans 'could be checked' doesn't matter: the definition needs a checkable fact stated and used, and none is.
+>
+> *Which pile:* (a) applied loosely
+
+**16.**
+> *The post:* If you need a gel before 90 minutes you have a fuelling problem, not an energy problem.
+>
+> *Staff said / I said:* `hot_take` / `analysis`
+>
+> *My call, and why:* Staff is right. '90 minutes' is a threshold inside the claim, not evidence for it. It's a confident prescription with nothing behind it, which is hot_take.
+>
+> *Which pile:* (a) applied loosely
+
+**17.**
+> *The post:* Road racing peaked in about 2015 and everything since has been marketing.
+>
+> *Staff said / I said:* `hot_take` / `analysis`
+>
+> *My call, and why:* Staff is right. '2015' sets the claim's scope; it isn't evidence that racing peaked. Rule 1: a fact has to do work in the argument. I counted any date as a fact, which is the same mistake as on 16 and 18.
+>
+> *Which pile:* (a) applied loosely
+
+**18.**
+> *The post:* Track sessions are wasted on anyone running slower than 8 minute miles. You'd get more out of just running more.
+>
+> *Staff said / I said:* `hot_take` / `analysis`
+>
+> *My call, and why:* Staff is right. '8 minute miles' is a cutoff, not support, and 'you'd get more out of just running more' is a second unsupported claim.
+>
+> *Which pile:* (a) applied loosely
+
+**19.**
+> *The post:* Nobody actually enjoys the long run. They enjoy having done it, which is a completely different thing, and the sport would be more honest if it said so.
+>
+> *Staff said / I said:* `hot_take` / `analysis`
+>
+> *My call, and why:* Staff says hot_take, I said analysis. Staff is right that no checkable fact appears. But the post does argue: it draws a distinction (enjoying vs having enjoyed) and reasons to a conclusion. The taxonomy only knows 'argued from a fact' (analysis) or 'not argued' (hot_take). It has no place for a post that reasons without facts. That's a gap: by the definitions I'd now say hot_take, because analysis needs a fact, but hot_take's 'it isn't argued' isn't true of this post either.
+>
+> *Which pile:* (b) rule gap
+
+**20.**
+> *The post:* Every injury thread on this forum is the same injury and the same three replies.
+>
+> *Staff said / I said:* `hot_take` / `analysis`
+>
+> *My call, and why:* Staff is right. 'The same three replies' sounds countable, but no count is given and nothing is shown. Asserting something that could be checked isn't the same as offering a checkable fact.
+>
+> *Which pile:* (a) applied loosely
+
+**21.**
+> *The post:* Four minutes off. FOUR. I've been chasing that time for two years and I'm sat on the kerb outside the finish just grinning at nothing.
+>
+> *Staff said / I said:* `reaction` / `analysis`
+>
+> *My call, and why:* Staff is right. 'Four minutes off' is the news, not an argument. Nothing is argued from it, and the post is about the writer, minutes after their race. Rule 3 only makes a recent post analysis if a fact is load-bearing, and here none is.
+>
+> *Which pile:* (a) applied loosely
+
+**22.**
+> *The post:* Got up at 5, drove ninety minutes, and it's cancelled. Standing in the car park in the rain reading the email.
+>
+> *Staff said / I said:* `reaction` / `analysis`
+>
+> *My call, and why:* Staff is right. '5am' and 'ninety minutes' are details of what happened to the writer, with no claim attached. That's reaction. I counted any number as a fact, again.
+>
+> *Which pile:* (a) applied loosely
+
+**23.**
+> *The post:* First run back after eight weeks out. Two miles, slower than my warm-up used to be, and I don't care even slightly.
+>
+> *Staff said / I said:* `reaction` / `analysis`
+>
+> *My call, and why:* Staff is right. 'Eight weeks' and 'two miles' describe the run; the point of the post is 'I don't care even slightly', a feeling about something that just happened.
+>
+> *Which pile:* (a) applied loosely
+
+**24.**
+> *The post:* Watching the last 400 of that and I had to stand up. Still standing up actually.
+>
+> *Staff said / I said:* `reaction` / `hot_take`
+>
+> *My call, and why:* Staff says reaction, I said hot_take. I'm defending my reading. The staff reaction definition says it's 'usually about the writer's own experience', but this post is about watching someone else's race, and standing up is a way of saying 'that was an incredible finish', which is Rule 2's own hot_take example ('That was the best race of the decade'). It's weak, because the claim is only implied, but the definition's 'usually' leaves room for it.
+>
+> *Which pile:* (c) defensible reading
+
+**25.**
+> *The post:* Blew up at 20 with the pace band still in my hand like it was going to help. Rough one.
+>
+> *Staff said / I said:* `reaction` / `analysis`
+>
+> *My call, and why:* Staff says reaction, I said analysis. Staff is right that nothing is argued from 'at 20'. But the rules never say what to do with a number that's just part of the story: Rule 1 covers decorative numbers on a conclusion, and this post has no conclusion at all. A one-line rule like 'a number with no claim attached is never analysis' would have stopped me here. Gap.
+>
+> *Which pile:* (b) rule gap
+
+**26.**
+> *The post:* Someone handed my kid an orange slice at mile 22 and I have been crying on and off since.
+>
+> *Staff said / I said:* `reaction` / `analysis`
+>
+> *My call, and why:* Staff is right. 'Mile 22' is where it happened; the post is pure feeling. Same mistake as 21–23.
+>
+> *Which pile:* (a) applied loosely
+
+**27.**
+> *The post:* Wind was so bad on the out section I was leaning at about 20 degrees. Coming back felt like cheating.
+>
+> *Staff said / I said:* `reaction` / `analysis`
+>
+> *My call, and why:* Staff is right. 'About 20 degrees' describes the experience, not evidence for any claim. It's a report of the run just done.
+>
+> *Which pile:* (a) applied loosely
+
+**28.**
+> *The post:* Third DNF this year. I don't really want to talk about it, just wanted to put it somewhere.
+>
+> *Staff said / I said:* `reaction` / `hot_take`
+>
+> *My call, and why:* Staff says reaction (flagged hard), I said hot_take. Staff is right that it isn't a general claim. But the reaction definition centres on 'something that just happened… in the last few hours', and 'third DNF this year' is about a whole year. Staff's note says Rule 3 doesn't rescue it into analysis, which I agree with, but no rule says a post about the writer's own state over months is still reaction. Gap.
+>
+> *Which pile:* (b) rule gap
+
+**29.**
+> *The post:* Just realised the shoes I set every PB in this year are the ones I bought by accident in the wrong size.
+>
+> *Staff said / I said:* `reaction` / `analysis`
+>
+> *My call, and why:* Staff is right. It's the writer's own realisation, now. Nothing is argued, so the possible wry point about shoe discourse is implied, not made.
+>
+> *Which pile:* (a) applied loosely
+
+**30.**
+> *The post:* Signed up. Card's charged, no going back, immediately regret everything.
+>
+> *Staff said / I said:* `reaction` / `hot_take`
+>
+> *My call, and why:* Staff says reaction, I said hot_take. I'm defending my reading. 'Immediately regret everything' is a confident, sweeping statement and the post offers nothing to support it. Rule 2 asks whether it's about a claim or about the writer, and the honest answer is that it's both. It's a joke. Again it's weak: the post is mostly about the writer's own moment, and Rule 4 (most words) would push it to reaction.
+>
+> *Which pile:* (c) defensible reading
 
 **What the pattern in my disagreements tells me:**
 
+19 of 25 are pile (a): the rule covered the post and I didn't apply it. The
+pattern is one specific mistake made over and over. **I treated "contains a
+number or a date" as the test for `analysis`**, so personal posts with
+numbers in them (mile 22, 5am, four minutes) became `analysis`. Meanwhile I
+called real fact-driven arguments (posts 4, 6, 7, 9, 10) `hot_take`, because
+they *ended* on a confident conclusion. That's the reverse of the rule: the
+question is whether the fact carries the argument, not whether a number
+appears or whether the tone is confident. Only 2 of my 30 labels were
+`reaction`, against 10 in the staff set, so I barely used the label for "what
+just happened to me".
 
+This is direct evidence about my own labelling. It matches my unit 5
+spot-check (3/20 agreement with the rule-based labels, with the same kind of
+error: a no-fact post called `analysis`, a stat-backed argument called
+`reaction`). One caveat matters for the diagnosis below: 260 of my 276
+training rows were pre-labelled by AI applying my written rules, and only
+16 are my cold labels. So this report measures how *I* label. It tells me my
+16 cold rows are unreliable, not that the whole training file is.
 
 ---
 
