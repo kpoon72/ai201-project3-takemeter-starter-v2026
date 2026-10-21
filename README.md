@@ -278,12 +278,30 @@ in.
 <!-- Both models on the same posts. `python baseline.py --trained results.json`
      prints this table for you. -->
 
+Both scored on the same 42 held-out posts in `test_split.csv`. Baseline:
+`facebook/bart-large-mnli` zero-shot, given my four definitions from
+`label_definitions.txt`. Trained: the unit 5 run (seed 42, `mps`).
+
 | Measure | Baseline | Trained | Difference |
 |---|---|---|---|
-| Overall accuracy |  |  |  |
-| Macro F1 |  |  |  |
-| F1 — `label_one` |  |  |  |
-| F1 — `label_two` |  |  |  |
+| Overall accuracy | 0.357 | 0.500 | +0.143 |
+| Macro F1 | 0.199 | 0.371 | +0.171 |
+| F1 — `analysis` | 0.531 | 0.683 | +0.152 |
+| F1 — `hot_take` | 0.267 | 0.400 | +0.133 |
+| F1 — `reaction` | 0.000 | 0.000 | +0.000 |
+| F1 — `trash_talk` | 0.000 | 0.400 | +0.400 |
+
+**What my definitions were worth:** the same baseline with bare label names
+instead of definitions (`baseline_results_bare_names.json`) scored accuracy
+**0.310** and macro F1 **0.184**, versus 0.357 / 0.199 with definitions. So
+the definitions bought about 5 points of accuracy. They also changed *what*
+it got right: with bare names it never predicted `analysis` correctly
+(F1 0.000) and leaned on `hot_take` (0.537). With definitions, `analysis`
+became its best label (0.531). The baseline reported above is the run with
+definitions.
+
+The baseline took a few seconds per post; the trained model scores all 42 in
+about a second.
 
 **What I predicted before I looked:**
 <!-- Milestone 1 asks you to write this BEFORE seeing the trained numbers. A
@@ -295,6 +313,15 @@ baseline on overall accuracy, mostly on `analysis`, because it learned what
 **What the gap actually means:**
 <!-- If the baseline matched your trained model, your fine-tuning added
      nothing — and that is a real finding, not a failure. Say it plainly. -->
+The prediction was right in direction: the trained model beat the
+baseline on accuracy (+0.14) and on `analysis` (+0.15). But `analysis` was
+not where it gained most. The biggest gain was `trash_talk` (0.000 → 0.400):
+a general model reading "aimed at another user… rather than at basketball"
+never picked it, while the fine-tuned model learned r/nba's surface signs of
+it ("you", "y'all", "this sub"). Neither model got a single `reaction` right,
+so fine-tuning added nothing there. That points at the label, not the
+training method. All of this is one split of 42 posts, so a 0.14 gap is
+about 6 posts.
 
 
 

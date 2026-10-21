@@ -1,0 +1,250 @@
+{
+  "model": "facebook/bart-large-mnli",
+  "n": 42,
+  "seed": 42,
+  "held_out": true,
+  "used_definitions": true,
+  "scores": {
+    "n": 42,
+    "accuracy": 0.35714285714285715,
+    "f1_macro": 0.19931972789115648,
+    "per_label": {
+      "analysis": {
+        "precision": 0.37142857142857144,
+        "recall": 0.9285714285714286,
+        "f1": 0.5306122448979592,
+        "support": 14
+      },
+      "hot_take": {
+        "precision": 0.6666666666666666,
+        "recall": 0.16666666666666666,
+        "f1": 0.26666666666666666,
+        "support": 12
+      },
+      "reaction": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 8
+      },
+      "trash_talk": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 8
+      }
+    }
+  },
+  "predictions": [
+    {
+      "text": "how does it sound like anything. it's not in audio form and yall are projecting lol",
+      "gold": "trash_talk",
+      "predicted": "analysis"
+    },
+    {
+      "text": "Are we reading the same thread? Who are you talking about that\u2019s crucifying him?",
+      "gold": "trash_talk",
+      "predicted": "analysis"
+    },
+    {
+      "text": "The 50% chance of a Kawhi + Scottie playoff run is better than the 100% chance of a Ingram + Scottie playoff run No offense to Ingram, he played his role as asked. But even if the Quickley/Barrett/Leonard/Barnes/CMB stars don't align, at least that's something you could see qualifying as a dream. It has a chance to do something interesting.",
+      "gold": "hot_take",
+      "predicted": "analysis"
+    },
+    {
+      "text": "JB gonna hop on stream and say some fake smart shit about LeBron that\u2019ll get posted on this sub and we will live for it.",
+      "gold": "hot_take",
+      "predicted": "hot_take"
+    },
+    {
+      "text": "Kobe fan boys are by far the weirdest fans in all of sports",
+      "gold": "trash_talk",
+      "predicted": "analysis"
+    },
+    {
+      "text": "These ESPN guys are such hacks. Crying foul because he doesnt want to talk to them. Hes lucky he didnt say that explicitly about them. Bringing up the Naz Reid thing to make a sweeping generalization about his character is such a petty thing to do. Hakeem used to get into fights all the time. Kareem as well. Shaq would openly clown other bigs before every match. They are revered, but Wemby is immature because he elbowed a guy. Getting away with it wasnt even his choice, thats on the league. Hes 22 years old, I think showing immaturity isnt a headline its totally normal. These fucking media talking heads need to grow up.",
+      "gold": "analysis",
+      "predicted": "reaction"
+    },
+    {
+      "text": "Hasn\u2019t Philly\u2019s FO said this every year since 2019? Lol",
+      "gold": "hot_take",
+      "predicted": "analysis"
+    },
+    {
+      "text": "Whole lot of redditors acting tough in this thread \ud83d\ude02",
+      "gold": "trash_talk",
+      "predicted": "analysis"
+    },
+    {
+      "text": "Nothing about his scenario is plausibly deniable lmfao. Yea someone can just lie that does not make it plausible.",
+      "gold": "hot_take",
+      "predicted": "hot_take"
+    },
+    {
+      "text": "Drew walked away like you woudl from a small child. certainly wasnt intimidated just looked more annoyed",
+      "gold": "reaction",
+      "predicted": "analysis"
+    },
+    {
+      "text": "Dame on his way to shoot 95% from 3 in this season",
+      "gold": "reaction",
+      "predicted": "analysis"
+    },
+    {
+      "text": "In 24-25 naz literally was a third option on a WCF team",
+      "gold": "analysis",
+      "predicted": "analysis"
+    },
+    {
+      "text": "Ehh you just let him coast on defence and do cardio on the perimeter to force openings because when his shot is on. It is **ON**",
+      "gold": "analysis",
+      "predicted": "analysis"
+    },
+    {
+      "text": "Yeah I don't get why that guy thinks GSW is more apt to overpay Jimmy. He doesn't have legacy here. And Steph and Draymond care more about winning than they care about playing with Jimmy. Steph didn't take a pay cut to get some guy who he's played <70 games with can get paid more than his production is worth. If anything, Jimmy is more likely to give a discount to GSW because he likes the team culture and maybe he'll be fine with it as the coda to his career, rather than making another run for a ring with a top contender.",
+      "gold": "analysis",
+      "predicted": "analysis"
+    },
+    {
+      "text": "Imagine needing a 41 year old to try and buy your way to a chip, wowee",
+      "gold": "trash_talk",
+      "predicted": "analysis"
+    },
+    {
+      "text": "I\u2019m in heaven lol. Not just because I love JBs game but also because we finally screwed the Celtics for once",
+      "gold": "reaction",
+      "predicted": "analysis"
+    },
+    {
+      "text": "Yeah but are all picking better players in hindsight. I remember it was a Reddit consensus that Knecht was a steal at 17 and there wasn\u2019t much (if any) noise with picks 18-30. It\u2019s like blaming every other team for not grabbing Jokic before the 41st pick. Hindsight is 20/20, means nothing.",
+      "gold": "analysis",
+      "predicted": "analysis"
+    },
+    {
+      "text": "Pablo single handedly taking down the NBA has been hilarious.",
+      "gold": "reaction",
+      "predicted": "analysis"
+    },
+    {
+      "text": "Even Tatum wasn\u2019t a good benchwarmer. What makes you think JB would be?",
+      "gold": "hot_take",
+      "predicted": "analysis"
+    },
+    {
+      "text": "I think there'll be 2-3 other teams that compete seriously against the knicks in the east, but I agree that I'm not sure who they'll be. If the sixers gel, it could be them. I could see boston being good. Pacers have the potential if Haliburton comes back 100% and the team adjusts to zubac. And of course you can't count out the bulls with Patrick Williams, who is due for an all star leap any day now",
+      "gold": "hot_take",
+      "predicted": "analysis"
+    },
+    {
+      "text": "Jokic has had some bad luck. Lost 1.5 seasons to Murray ACL, two years of MPJ out, and two post seasons of AG injuries. People complain the Nuggets are wasting his prime, but those prime years were 2020-2024.",
+      "gold": "analysis",
+      "predicted": "analysis"
+    },
+    {
+      "text": "Peja Stojakovic. 4th in MVP voting in 03-04.",
+      "gold": "analysis",
+      "predicted": "analysis"
+    },
+    {
+      "text": "Sure, I still think okc is the best team in the league and that conference finals loss doesn't change anything for me",
+      "gold": "hot_take",
+      "predicted": "analysis"
+    },
+    {
+      "text": "You don't pay someone $50m to appeal to people who are already NBA fans.",
+      "gold": "hot_take",
+      "predicted": "analysis"
+    },
+    {
+      "text": "This feels like the first real test we're seeing of what happens when what would have been a max guy just a couple of years ago suddenly isn't. And I can't really fault either side for playing the hands they have. Duren as a player wants what his resume (such as it is) says he's worth and he should. The team on the other hand wants to keep duren on a deal that doesn't mess up their long term team building, as they should. The fact that he's walked them all the way up to 200 is impressive tho",
+      "gold": "analysis",
+      "predicted": "analysis"
+    },
+    {
+      "text": "Westbrook had his worst year with the Lakers but the real damage came with his $44 million contract. Brutal stuff",
+      "gold": "analysis",
+      "predicted": "analysis"
+    },
+    {
+      "text": "Adrian Dantley had unbelievable scoring numbers but was a net negative and had poor advanced stats relative to his counting stats seen when the Pistons traded him and through addition by subtraction won back to back titles without him",
+      "gold": "analysis",
+      "predicted": "analysis"
+    },
+    {
+      "text": "Be so for real. Sixers fans were over it by 2020, it was everyone else that wouldn\u2019t shut up about it",
+      "gold": "hot_take",
+      "predicted": "analysis"
+    },
+    {
+      "text": "Yeah, if he thinks freak means top 10% go for it. I clearly stated to him multiple times I view it as top 1% (as do many others). If you notice most of his responses are not related to what I said. For instance he claimed I agreed with Kwame Brown (which I never did).",
+      "gold": "trash_talk",
+      "predicted": "analysis"
+    },
+    {
+      "text": "He\u2019s just a goofy rage baiter. Guys gotta start laughing at him. He wants you to get angry.",
+      "gold": "reaction",
+      "predicted": "trash_talk"
+    },
+    {
+      "text": "Can you imagine a male author writing this about a woman? He'd get crucified.",
+      "gold": "reaction",
+      "predicted": "hot_take"
+    },
+    {
+      "text": "Drew didn\u2019t get arrested and charged with assault and then suspended 3 games",
+      "gold": "analysis",
+      "predicted": "analysis"
+    },
+    {
+      "text": "You act like I\u2019m saying he will be an all star, I\u2019m literally talking about him being a role player.",
+      "gold": "trash_talk",
+      "predicted": "analysis"
+    },
+    {
+      "text": "0% body fat, and 0% muscle, too. Just skin and bone.",
+      "gold": "reaction",
+      "predicted": "trash_talk"
+    },
+    {
+      "text": "No way that lebron is circumventing via fanatics. Its not like fanatics owner Michael Rubin has a connection to the 76ers right? No way is he still attending games courtside and maintains relationships with 76ers personal including players like Embiid. Nahhhh, not rhe goat. He would never",
+      "gold": "analysis",
+      "predicted": "analysis"
+    },
+    {
+      "text": "This should just be shown at rookie camps for all sports. Just this clip.",
+      "gold": "hot_take",
+      "predicted": "reaction"
+    },
+    {
+      "text": "It was a pretty direct shot at Hill's integrity and I think he'd be justified in taking that into consideration just like all other aspects of players' games and behaviors.",
+      "gold": "hot_take",
+      "predicted": "analysis"
+    },
+    {
+      "text": "yes, he had a legit argument for top 1% at times. 1999-2002. Vince, Shaq, maybe TMac, might've been the only ones clearly more athletic than him",
+      "gold": "hot_take",
+      "predicted": "analysis"
+    },
+    {
+      "text": "Love the misogyny you slid in at the end bro",
+      "gold": "trash_talk",
+      "predicted": "analysis"
+    },
+    {
+      "text": "All-star =/= MVP. Wade was 10th in MVP voting in 2012 and 2013, then got no more MVP shares for the rest of his career.",
+      "gold": "analysis",
+      "predicted": "analysis"
+    },
+    {
+      "text": "\ud83d\ude02\ud83d\ude02 I feel sorry for kings fanbase but acuff looks promising. Franchise bet on daaron fox and fumbled Luka and traded away haliburton.",
+      "gold": "reaction",
+      "predicted": "analysis"
+    },
+    {
+      "text": "2 years ago they won 52 games with the 7th best netrtg in the league (4.6). As you mentioned were called an up and coming team before losing in the first round of the playoffs to a vet heavy GS team. Last year they won 52 games with the 6th best netrtg in the league (5.4) before losing in the first round of the playoffs despite missing multiple key contributors (some of whom are overrated, but key nonetheless). I think the truth is they probably werent all that \"up n coming\" two years ago, and the vibes weren't as bad as people think they were last year. They are a good team that I dont think is as good as Thunder or the Spurs but I can talk myself into seeing them finish anywhere from 3rd to 6 in the same cohort they were in last year (Lakers, Denver, Minny).",
+      "gold": "analysis",
+      "predicted": "analysis"
+    }
+  ]
+}
