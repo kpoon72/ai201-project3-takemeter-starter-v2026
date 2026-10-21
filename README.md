@@ -266,6 +266,27 @@ labels because my picks didn't follow my written rules. I did not review the
 remaining 236 individually. Each row's `note` column says which group it is
 in.
 
+**Unit 6 AI use.** Claude (in Claude Code) ran `baseline.py`,
+`agreement.py` and notebook sections 6–7, and drafted the unit 6 README
+sections from their output. Two specific moments:
+
+- **Spotting the pattern in my errors.** After `agreement.py` listed 25
+  disagreements, Claude grouped them by label pair and pointed out that I
+  had used "contains a number" as my test for `analysis`, the reverse of
+  staff Rule 1. I made every adjudication call myself (19 a, 4 b, 2 c) by
+  picking a pile for each post; Claude wrote the reasoning for each call
+  from the staff rules, which I then read.
+- **Choosing the improvement.** Claude read the per-epoch losses and the
+  confusion matrices and noticed the model almost never predicted the two
+  small labels and was still improving at epoch 3, which pointed at
+  undertraining rather than labels. It offered three options; I chose
+  10 epochs.
+
+Claude also caught one of its own counting mistakes (it first wrote 4
+small-label predictions, then checked the JSON and corrected it to 6).
+I labelled all 30 staff posts myself, one at a time, before seeing the
+staff key.
+
 <!-- ═══════════════════════ UNIT 6 — THE TEST ═══════════════════════
 
      Don't fill these in during unit 5.
@@ -821,13 +842,44 @@ can't draw from 38 training examples.
 
 <!-- For each criterion still missed: what you'd do, and why you stopped. -->
 
+**Criterion 1 (accuracy ≥ 0.60), still missed at 0.500–0.548.** The model
+still loses most of its accuracy on the three short-post labels: on seed 42
+after the fix, 13 of the 19 errors involve `reaction`, `trash_talk` or
+`hot_take` being confused with each other. *What I'd do:* add about 50
+more `reaction` posts (the thinnest label that's also the worst), labelled
+by me and checked against the rule, then retrain at 10 epochs. *Why I
+stopped:* the assignment allows one change this unit, and I spent it on
+training, which the diagnosis named first.
 
+**Criterion 2 (every label F1 ≥ 0.45), still missed: `reaction` ≤ 0.22 on
+every seed.** `trash_talk` and `hot_take` came up to about 0.42–0.50, so
+`reaction` is the one label holding this down. *What I'd do:* the same
+extra `reaction` data. I'd also tighten my own `reaction` definition, which
+says "one specific play, clip or piece of news". Many of my `reaction`
+posts are jokes about a clip, which look a lot like `trash_talk` jokes about
+a user. A rule like "who is the joke about: a player/play → reaction, a
+user → trash_talk" is already my second decision rule, but I never gave
+the model enough examples of it. *Why I stopped:* the one-change rule.
+
+**Criterion 4 (agreement ≥ 22/30), still missed at 5/30.** The improvement
+couldn't touch this; it measures me. *What I'd do:* relabel the 30 staff
+posts a week from now, using only Rule 1's test (is the fact load-bearing?)
+and Rule 2's test (about the writer or about the world?), and see whether
+the rate moves. *Why I stopped:* relabelling isn't allowed this unit, and
+re-doing the staff set now, after seeing the key, wouldn't measure
+anything.
 
 **The gap between what I meant my labels to capture and what the model
 learned:**
 <!-- Two sentences. Your confusion matrix is the evidence. -->
-
-
+I meant `analysis` vs `hot_take` to be about *whether a fact supports the
+claim*, and `reaction` to be about *responding to one moment*. The model
+learned something closer to "long post with numbers → `analysis`, short
+casual post → one of the other three, mostly `hot_take`". The confusion
+matrices show it: `analysis` is right 9–12 times out of 14 on every seed
+after the fix, while 13 of 19 seed-42 errors fall among the three short-post
+labels, which my definitions separate by *target* and *scope*, not by
+anything on the surface.
 
 <!-- ═════════════════════════════════════════════════════════════════════
 
