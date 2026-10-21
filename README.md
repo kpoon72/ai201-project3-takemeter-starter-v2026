@@ -332,31 +332,72 @@ about 6 posts.
 <!-- Five criteria across three seeds. The notebook's section 6 prints the
      spread table; the Target and Verdict columns are yours. -->
 
+All three seeds trained on `mps` (Apple Silicon GPU), torch 2.14.1, default
+settings (3 epochs, lr 2e-5, batch 16). Each seed is a different stratified
+split, with 42 test posts. Seed 42 reproduced the unit 5 run exactly (0.500).
+
 | Criterion | Target | Seed 42 | Seed 7 | Seed 2024 | Verdict |
 |---|---|---|---|---|---|
-| 1.  |  |  |  |  |  |
-| 2.  |  |  |  |  |  |
-| 3.  |  |  |  |  |  |
-| 4.  |  |  |  |  |  |
-| 5.  |  |  |  |  |  |
+| 1. Overall accuracy | ≥ 0.60 | 0.500 | 0.476 | 0.500 | MISSED |
+| 2. Every label F1 (worst label shown) | ≥ 0.45 | 0.000 (`reaction`) | 0.000 (`reaction`, `trash_talk`) | 0.000 (`trash_talk`) | MISSED |
+| 3. Every label 15–40% of `labels.csv` | 15%–40% | 17.8%–33.7% | 17.8%–33.7% | 17.8%–33.7% | MET |
+| 4. Agreement with staff labels | ≥ 22/30 | see Agreement Report | — | — | (Milestone 3) |
+| 5. Most-confident third minus least-confident third, accuracy | ≥ +0.20 | +0.286 (0.714 vs 0.429) | +0.500 (0.714 vs 0.214) | +0.429 (0.643 vs 0.214) | MET |
+
+Criterion 3 is a property of the labelled file, not of a split, so it's the
+same on every seed. Criterion 4 is a property of my labelling, measured once
+on the 30 staff posts.
+
+**Per-label F1, all three seeds** (from section 6):
+
+| Measure | Seed 42 | Seed 7 | Seed 2024 | Spread |
+|---|---|---|---|---|
+| Overall accuracy | 0.500 | 0.476 | 0.500 | 0.024 |
+| Macro F1 | 0.371 | 0.294 | 0.378 | 0.084 |
+| F1 — `analysis` | 0.683 | 0.824 | 0.727 | 0.141 |
+| F1 — `hot_take` | 0.400 | 0.353 | 0.452 | 0.099 |
+| F1 — `reaction` | 0.000 | 0.000 | 0.333 | 0.333 |
+| F1 — `trash_talk` | 0.400 | 0.000 | 0.000 | 0.400 |
+
+Accuracy moved only 0.024 across seeds, well under the 10-point warning line,
+so the overall number is stable. The per-label F1s for `reaction` and
+`trash_talk` swing much more, as expected with only 8 test posts each.
 
 ### Confusion matrix
 
-<!-- ⚠️ TYPED AS A MARKDOWN TABLE. The notebook prints one ready to paste.
-     An image of a matrix earns nothing. -->
+Seed 42 (section 7 prints the first seed):
 
-| true \ predicted |  |  |  |
-|---|---|---|---|
-| **** |  |  |  |
-| **** |  |  |  |
-| **** |  |  |  |
+| true \ predicted | analysis | hot_take | reaction | trash_talk |
+|---|---|---|---|---|
+| **analysis** | 14 | 0 | 0 | 0 |
+| **hot_take** | 7 | 5 | 0 | 0 |
+| **reaction** | 4 | 4 | 0 | 0 |
+| **trash_talk** | 2 | 4 | 0 | 2 |
+
+The other two seeds, from `results_three_seeds_before.json`:
+
+| Seed 7: true \ predicted | analysis | hot_take | reaction | trash_talk |
+|---|---|---|---|---|
+| **analysis** | 14 | 0 | 0 | 0 |
+| **hot_take** | 6 | 6 | 0 | 0 |
+| **reaction** | 0 | 8 | 0 | 0 |
+| **trash_talk** | 0 | 8 | 0 | 0 |
+
+| Seed 2024: true \ predicted | analysis | hot_take | reaction | trash_talk |
+|---|---|---|---|---|
+| **analysis** | 12 | 2 | 0 | 0 |
+| **hot_take** | 5 | 7 | 0 | 0 |
+| **reaction** | 2 | 4 | 2 | 0 |
+| **trash_talk** | 0 | 6 | 2 | 0 |
 
 **My biggest off-diagonal number, and what it means:**
-<!-- Not "the model made mistakes" — WHICH boundary it didn't learn, and which
-     direction. "7 real analysis posts were called hot_take and only 3 went the
-     other way" is a direction, not just an error rate. -->
-
-
+7 real `hot_take` posts were called `analysis`, and 0 went the other way.
+The model treats "sounds like a basketball argument" as `analysis` whether or
+not a checkable fact is there, so it hasn't learned my hardest boundary, and
+it errs in one direction only. Across all three seeds there's a second
+pattern: the model almost never predicts `reaction` or `trash_talk` at all
+(4 such predictions in 126 test posts). It falls back on the two biggest
+labels.
 
 ---
 
